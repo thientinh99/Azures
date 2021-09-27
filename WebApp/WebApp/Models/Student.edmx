@@ -1,0 +1,805 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="AttID" />
+          </Key>
+          <Property Name="AttID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubOfClaID" Type="int" />
+          <Property Name="StID" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AttendanceDetails">
+          <Key>
+            <PropertyRef Name="AttDetID" />
+          </Key>
+          <Property Name="AttDetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttID" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="LastUpdate" Type="date" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Others" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="70" />
+          <Property Name="CurrID" Type="varchar" MaxLength="10" />
+          <Property Name="SlotTime" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Curriculums">
+          <Key>
+            <PropertyRef Name="CurrID" />
+          </Key>
+          <Property Name="CurrID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CurrName" Type="nvarchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="ExamDetails">
+          <Key>
+            <PropertyRef Name="ExamDetID" />
+          </Key>
+          <Property Name="ExamDetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+          <Property Name="StID" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Exams">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubOfClaID" Type="int" />
+          <Property Name="Time" Type="int" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Lecturers">
+          <Key>
+            <PropertyRef Name="LecID" />
+          </Key>
+          <Property Name="LecID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Staffs">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StID" />
+          </Key>
+          <Property Name="StID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="StName" Type="nvarchar" MaxLength="70" />
+          <Property Name="Password" Type="varchar" MaxLength="30" />
+          <Property Name="PortalID" Type="varchar" MaxLength="20" />
+          <Property Name="ClassID" Type="varchar" MaxLength="10" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="SubID" />
+          </Key>
+          <Property Name="SubID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubName" Type="nvarchar" MaxLength="70" />
+          <Property Name="CurrID" Type="varchar" MaxLength="10" />
+          <Property Name="Sem" Type="int" />
+          <Property Name="Hours" Type="int" />
+        </EntityType>
+        <EntityType Name="SubjectsOfClass">
+          <Key>
+            <PropertyRef Name="SubOfClaID" />
+          </Key>
+          <Property Name="SubOfClaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubID" Type="varchar" MaxLength="10" />
+          <Property Name="ClassID" Type="varchar" MaxLength="10" />
+          <Property Name="LecID" Type="varchar" MaxLength="10" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Hours" Type="int" />
+          <Property Name="SlotTime" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <Association Name="FK__Attendanc__AttID__38996AB5">
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="0..1" />
+          <End Role="AttendanceDetails" Type="Self.AttendanceDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attendance">
+              <PropertyRef Name="AttID" />
+            </Principal>
+            <Dependent Role="AttendanceDetails">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendanc__SubOf__34C8D9D1">
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="0..1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectsOfClass">
+              <PropertyRef Name="SubOfClaID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="SubOfClaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendance__StID__35BCFE0A">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="StID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Classes__CurrID__286302EC">
+          <End Role="Curriculums" Type="Self.Curriculums" Multiplicity="0..1" />
+          <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculums">
+              <PropertyRef Name="CurrID" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="CurrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamDetai__ExamI__3E52440B">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="0..1" />
+          <End Role="ExamDetails" Type="Self.ExamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="ExamDetails">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamDetail__StID__3F466844">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="ExamDetails" Type="Self.ExamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StID" />
+            </Principal>
+            <Dependent Role="ExamDetails">
+              <PropertyRef Name="StID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exams__SubOfClaI__3B75D760">
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectsOfClass">
+              <PropertyRef Name="SubOfClaID" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="SubOfClaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Students__ClassI__2B3F6F97">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__CurrID__25869641">
+          <End Role="Curriculums" Type="Self.Curriculums" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculums">
+              <PropertyRef Name="CurrID" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="CurrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectsO__Class__30F848ED">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="0..1" />
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="SubjectsOfClass">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectsO__LecID__31EC6D26">
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="0..1" />
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecID" />
+            </Principal>
+            <Dependent Role="SubjectsOfClass">
+              <PropertyRef Name="LecID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectsO__SubID__300424B4">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubID" />
+            </Principal>
+            <Dependent Role="SubjectsOfClass">
+              <PropertyRef Name="SubID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttendanceDetails" EntityType="Self.AttendanceDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curriculums" EntityType="Self.Curriculums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamDetails" EntityType="Self.ExamDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exams" EntityType="Self.Exams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubjectsOfClass" EntityType="Self.SubjectsOfClass" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Attendanc__AttID__38996AB5" Association="Self.FK__Attendanc__AttID__38996AB5">
+            <End Role="Attendance" EntitySet="Attendance" />
+            <End Role="AttendanceDetails" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendanc__SubOf__34C8D9D1" Association="Self.FK__Attendanc__SubOf__34C8D9D1">
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClass" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendance__StID__35BCFE0A" Association="Self.FK__Attendance__StID__35BCFE0A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Classes__CurrID__286302EC" Association="Self.FK__Classes__CurrID__286302EC">
+            <End Role="Curriculums" EntitySet="Curriculums" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamDetai__ExamI__3E52440B" Association="Self.FK__ExamDetai__ExamI__3E52440B">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="ExamDetails" EntitySet="ExamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamDetail__StID__3F466844" Association="Self.FK__ExamDetail__StID__3F466844">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="ExamDetails" EntitySet="ExamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exams__SubOfClaI__3B75D760" Association="Self.FK__Exams__SubOfClaI__3B75D760">
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClass" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Students__ClassI__2B3F6F97" Association="Self.FK__Students__ClassI__2B3F6F97">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__CurrID__25869641" Association="Self.FK__Subjects__CurrID__25869641">
+            <End Role="Curriculums" EntitySet="Curriculums" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectsO__Class__30F848ED" Association="Self.FK__SubjectsO__Class__30F848ED">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectsO__LecID__31EC6D26" Association="Self.FK__SubjectsO__LecID__31EC6D26">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectsO__SubID__300424B4" Association="Self.FK__SubjectsO__SubID__300424B4">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClass" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="AttID" />
+          </Key>
+          <Property Name="AttID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubOfClaID" Type="Int32" />
+          <Property Name="StID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AttendanceDetails" Relationship="Self.FK__Attendanc__AttID__38996AB5" FromRole="Attendance" ToRole="AttendanceDetails" />
+          <NavigationProperty Name="SubjectsOfClass" Relationship="Self.FK__Attendanc__SubOf__34C8D9D1" FromRole="Attendance" ToRole="SubjectsOfClass" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Attendance__StID__35BCFE0A" FromRole="Attendance" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="AttendanceDetail">
+          <Key>
+            <PropertyRef Name="AttDetID" />
+          </Key>
+          <Property Name="AttDetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Others" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attendance" Relationship="Self.FK__Attendanc__AttID__38996AB5" FromRole="AttendanceDetails" ToRole="Attendance" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClassName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="CurrID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SlotTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curriculum" Relationship="Self.FK__Classes__CurrID__286302EC" FromRole="Classes" ToRole="Curriculums" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Students__ClassI__2B3F6F97" FromRole="Classes" ToRole="Students" />
+          <NavigationProperty Name="SubjectsOfClasses" Relationship="Self.FK__SubjectsO__Class__30F848ED" FromRole="Classes" ToRole="SubjectsOfClass" />
+        </EntityType>
+        <EntityType Name="Curriculum">
+          <Key>
+            <PropertyRef Name="CurrID" />
+          </Key>
+          <Property Name="CurrID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK__Classes__CurrID__286302EC" FromRole="Curriculums" ToRole="Classes" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK__Subjects__CurrID__25869641" FromRole="Curriculums" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="ExamDetail">
+          <Key>
+            <PropertyRef Name="ExamDetID" />
+          </Key>
+          <Property Name="ExamDetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamID" Type="Int32" />
+          <Property Name="StID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK__ExamDetai__ExamI__3E52440B" FromRole="ExamDetails" ToRole="Exams" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__ExamDetail__StID__3F466844" FromRole="ExamDetails" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubOfClaID" Type="Int32" />
+          <Property Name="Time" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ExamDetails" Relationship="Self.FK__ExamDetai__ExamI__3E52440B" FromRole="Exams" ToRole="ExamDetails" />
+          <NavigationProperty Name="SubjectsOfClass" Relationship="Self.FK__Exams__SubOfClaI__3B75D760" FromRole="Exams" ToRole="SubjectsOfClass" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="LecID" />
+          </Key>
+          <Property Name="LecID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubjectsOfClasses" Relationship="Self.FK__SubjectsO__LecID__31EC6D26" FromRole="Lecturers" ToRole="SubjectsOfClass" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StID" />
+          </Key>
+          <Property Name="StID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PortalID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendance__StID__35BCFE0A" FromRole="Students" ToRole="Attendance" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Students__ClassI__2B3F6F97" FromRole="Students" ToRole="Classes" />
+          <NavigationProperty Name="ExamDetails" Relationship="Self.FK__ExamDetail__StID__3F466844" FromRole="Students" ToRole="ExamDetails" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubID" />
+          </Key>
+          <Property Name="SubID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="CurrID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Sem" Type="Int32" />
+          <Property Name="Hours" Type="Int32" />
+          <NavigationProperty Name="Curriculum" Relationship="Self.FK__Subjects__CurrID__25869641" FromRole="Subjects" ToRole="Curriculums" />
+          <NavigationProperty Name="SubjectsOfClasses" Relationship="Self.FK__SubjectsO__SubID__300424B4" FromRole="Subjects" ToRole="SubjectsOfClass" />
+        </EntityType>
+        <EntityType Name="SubjectsOfClass">
+          <Key>
+            <PropertyRef Name="SubOfClaID" />
+          </Key>
+          <Property Name="SubOfClaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LecID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Hours" Type="Int32" />
+          <Property Name="SlotTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendanc__SubOf__34C8D9D1" FromRole="SubjectsOfClass" ToRole="Attendance" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__SubjectsO__Class__30F848ED" FromRole="SubjectsOfClass" ToRole="Classes" />
+          <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__SubOfClaI__3B75D760" FromRole="SubjectsOfClass" ToRole="Exams" />
+          <NavigationProperty Name="Lecturer" Relationship="Self.FK__SubjectsO__LecID__31EC6D26" FromRole="SubjectsOfClass" ToRole="Lecturers" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__SubjectsO__SubID__300424B4" FromRole="SubjectsOfClass" ToRole="Subjects" />
+        </EntityType>
+        <Association Name="FK__Attendanc__AttID__38996AB5">
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="0..1" />
+          <End Role="AttendanceDetails" Type="Self.AttendanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attendance">
+              <PropertyRef Name="AttID" />
+            </Principal>
+            <Dependent Role="AttendanceDetails">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendanc__SubOf__34C8D9D1">
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="0..1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectsOfClass">
+              <PropertyRef Name="SubOfClaID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="SubOfClaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendance__StID__35BCFE0A">
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="StID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Classes__CurrID__286302EC">
+          <End Role="Curriculums" Type="Self.Curriculum" Multiplicity="0..1" />
+          <End Role="Classes" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculums">
+              <PropertyRef Name="CurrID" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="CurrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Students__ClassI__2B3F6F97">
+          <End Role="Classes" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectsO__Class__30F848ED">
+          <End Role="Classes" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="SubjectsOfClass">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__CurrID__25869641">
+          <End Role="Curriculums" Type="Self.Curriculum" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curriculums">
+              <PropertyRef Name="CurrID" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="CurrID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamDetai__ExamI__3E52440B">
+          <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="ExamDetails" Type="Self.ExamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="ExamDetails">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamDetail__StID__3F466844">
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="ExamDetails" Type="Self.ExamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StID" />
+            </Principal>
+            <Dependent Role="ExamDetails">
+              <PropertyRef Name="StID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exams__SubOfClaI__3B75D760">
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectsOfClass">
+              <PropertyRef Name="SubOfClaID" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="SubOfClaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectsO__LecID__31EC6D26">
+          <End Role="Lecturers" Type="Self.Lecturer" Multiplicity="0..1" />
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecID" />
+            </Principal>
+            <Dependent Role="SubjectsOfClass">
+              <PropertyRef Name="LecID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubjectsO__SubID__300424B4">
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="SubjectsOfClass" Type="Self.SubjectsOfClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubID" />
+            </Principal>
+            <Dependent Role="SubjectsOfClass">
+              <PropertyRef Name="SubID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+          <EntitySet Name="AttendanceDetails" EntityType="Self.AttendanceDetail" />
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Curriculums" EntityType="Self.Curriculum" />
+          <EntitySet Name="ExamDetails" EntityType="Self.ExamDetail" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturer" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="SubjectsOfClasses" EntityType="Self.SubjectsOfClass" />
+          <AssociationSet Name="FK__Attendanc__AttID__38996AB5" Association="Self.FK__Attendanc__AttID__38996AB5">
+            <End Role="Attendance" EntitySet="Attendances" />
+            <End Role="AttendanceDetails" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendanc__SubOf__34C8D9D1" Association="Self.FK__Attendanc__SubOf__34C8D9D1">
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClasses" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendance__StID__35BCFE0A" Association="Self.FK__Attendance__StID__35BCFE0A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Classes__CurrID__286302EC" Association="Self.FK__Classes__CurrID__286302EC">
+            <End Role="Curriculums" EntitySet="Curriculums" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Students__ClassI__2B3F6F97" Association="Self.FK__Students__ClassI__2B3F6F97">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectsO__Class__30F848ED" Association="Self.FK__SubjectsO__Class__30F848ED">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__CurrID__25869641" Association="Self.FK__Subjects__CurrID__25869641">
+            <End Role="Curriculums" EntitySet="Curriculums" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamDetai__ExamI__3E52440B" Association="Self.FK__ExamDetai__ExamI__3E52440B">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="ExamDetails" EntitySet="ExamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamDetail__StID__3F466844" Association="Self.FK__ExamDetail__StID__3F466844">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="ExamDetails" EntitySet="ExamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exams__SubOfClaI__3B75D760" Association="Self.FK__Exams__SubOfClaI__3B75D760">
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClasses" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectsO__LecID__31EC6D26" Association="Self.FK__SubjectsO__LecID__31EC6D26">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubjectsO__SubID__300424B4" Association="Self.FK__SubjectsO__SubID__300424B4">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="SubjectsOfClass" EntitySet="SubjectsOfClasses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Attendances">
+            <EntityTypeMapping TypeName="Database1Model.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
+                <ScalarProperty Name="SubOfClaID" ColumnName="SubOfClaID" />
+                <ScalarProperty Name="StID" ColumnName="StID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttendanceDetails">
+            <EntityTypeMapping TypeName="Database1Model.AttendanceDetail">
+              <MappingFragment StoreEntitySet="AttendanceDetails">
+                <ScalarProperty Name="AttDetID" ColumnName="AttDetID" />
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Others" ColumnName="Others" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="Database1Model.Class">
+              <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="CurrID" ColumnName="CurrID" />
+                <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curriculums">
+            <EntityTypeMapping TypeName="Database1Model.Curriculum">
+              <MappingFragment StoreEntitySet="Curriculums">
+                <ScalarProperty Name="CurrID" ColumnName="CurrID" />
+                <ScalarProperty Name="CurrName" ColumnName="CurrName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamDetails">
+            <EntityTypeMapping TypeName="Database1Model.ExamDetail">
+              <MappingFragment StoreEntitySet="ExamDetails">
+                <ScalarProperty Name="ExamDetID" ColumnName="ExamDetID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="StID" ColumnName="StID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="Database1Model.Exam">
+              <MappingFragment StoreEntitySet="Exams">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="SubOfClaID" ColumnName="SubOfClaID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturers">
+            <EntityTypeMapping TypeName="Database1Model.Lecturer">
+              <MappingFragment StoreEntitySet="Lecturers">
+                <ScalarProperty Name="LecID" ColumnName="LecID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="Database1Model.Staff">
+              <MappingFragment StoreEntitySet="Staffs">
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Database1Model.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StID" ColumnName="StID" />
+                <ScalarProperty Name="StName" ColumnName="StName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PortalID" ColumnName="PortalID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="Database1Model.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="SubID" ColumnName="SubID" />
+                <ScalarProperty Name="SubName" ColumnName="SubName" />
+                <ScalarProperty Name="CurrID" ColumnName="CurrID" />
+                <ScalarProperty Name="Sem" ColumnName="Sem" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubjectsOfClasses">
+            <EntityTypeMapping TypeName="Database1Model.SubjectsOfClass">
+              <MappingFragment StoreEntitySet="SubjectsOfClass">
+                <ScalarProperty Name="SubOfClaID" ColumnName="SubOfClaID" />
+                <ScalarProperty Name="SubID" ColumnName="SubID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="LecID" ColumnName="LecID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="SlotTime" ColumnName="SlotTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

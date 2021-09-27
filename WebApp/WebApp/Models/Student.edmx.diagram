@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a86a559e1804471c9160b2e9db936406" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.Attendance" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.AttendanceDetail" Width="1.5" PointX="9.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Class" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Curriculum" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.ExamDetail" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Exam" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Lecturer" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Staff" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Student" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Subject" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.SubjectsOfClass" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK__Attendanc__AttID__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Attendanc__SubOf__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Attendance__StID__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Classes__CurrID__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Students__ClassI__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__SubjectsO__Class__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Subjects__CurrID__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__ExamDetai__ExamI__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__ExamDetail__StID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Exams__SubOfClaI__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__SubjectsO__LecID__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__SubjectsO__SubID__300424B4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
