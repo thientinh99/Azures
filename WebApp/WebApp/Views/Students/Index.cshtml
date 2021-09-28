@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WebApp.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="row">
+    <div class="col-sm-3">
+        @using (Html.BeginForm("ExportToExcel", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div>
+                <input type="submit" value="Export" class="btn-primary" />
+            </div>
+        }
+    </div>
+    <div class="col-sm-4">
+        <div class="container">
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <div class="row">
+                        @using (Html.BeginForm("ImportExcel", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="form-group">
+
+                                @Html.Label("File Upload", new { @class = "col-sm-3" })
+
+                                <div class="col-sm-7">
+                                    <input type="file" id="postedFile" name="postedFile" class="form-control" accept=".xls,.xlsx" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-offset-3 col-md-10">
+                                    <br />
+                                    <input type="submit" title="Upload" value="Upload" class="btn btn-default" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-offset-3 col-md-10">
+                                    <br />
+                                    <span style="color:red;">
+                                        @ViewBag.Message
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PortalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class.ClassName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PortalID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class.ClassName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StID })
+            </td>
+        </tr>
+    }
+
+</table>
