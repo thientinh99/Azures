@@ -13,6 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -146,9 +148,42 @@ namespace WebApp.Controllers
                 Phone = row[6].ToString(),
             };
         }
-    
-    // GET: Students/Details/5
-    public ActionResult Details(string id)
+
+        public ActionResult ExportToExcel()
+        {
+           
+            DataTable dt = new DataTable("Students");
+            dt.Columns.AddRange(new DataColumn[7] { new DataColumn("StId"),
+                                            new DataColumn("StName"),
+                                            new DataColumn("Password"),
+                                            new DataColumn("PortalId"),
+                                            new DataColumn("ClassName"),
+                                            new DataColumn("Email"),
+                                            new DataColumn("Phone")
+            });
+
+            var student = from Students in db.Students.Take(10)
+                            select Students;
+
+            foreach (var st in student)
+            {
+                dt.Rows.Add(st.StID,st.StName,st.Password,st.PortalID,st.Class.ClassName,st.Email,st.Phone);
+            }
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Grid.xlsx");
+                }
+            }
+            return View("Index");
+        }
+
+        // GET: Students/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
