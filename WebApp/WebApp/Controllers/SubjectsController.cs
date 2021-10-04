@@ -139,8 +139,8 @@ namespace WebApp.Controllers
                 SubID = row[0].ToString(),
                 SubName = row[1].ToString(),
                 CurrID = row[2].ToString(),
-                Sem = (int?)row[3],
-                Hours = (int?)row[4],
+                Sem = int.Parse(row[3].ToString()),
+                Hours = int.Parse(row[4].ToString()),
             };
         }
 
