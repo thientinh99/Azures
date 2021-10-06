@@ -1,0 +1,42 @@
+﻿@model WebApp.Models.Class
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Class</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SlotTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SlotTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curriculum.CurrName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curriculum.CurrName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClassID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
